@@ -12,4 +12,5 @@ COPY ./entrypoint.sh /
 RUN go build -o main .
 
 EXPOSE 8080
+RUN chmod +x /entrypoint.sh
 CMD ["/entrypoint.sh"]
