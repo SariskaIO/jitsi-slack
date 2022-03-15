@@ -92,7 +92,8 @@ func (s *ServerCfgStore) Remove(teamID string) error {
 // the default if no configuration is stored for the team.
 func (s *ServerCfgStore) Get(teamID string) (ServerCfg, error) {
 	keyCond := expression.Key(KeyTeamIDSrvCfg).Equal(expression.Value(teamID))
-	builder := expression.NewBuilder().WithKeyCondition(keyCond)
+	keyCond1 := expression.Key("sariska").Equal(expression.Value("sariska"))
+	builder := expression.NewBuilder().WithKeyCondition(keyCond).WithKeyCondition(keyCond1)
 	expr, err := builder.Build()
 	if err != nil {
 		return ServerCfg{}, err
@@ -102,7 +103,6 @@ func (s *ServerCfgStore) Get(teamID string) (ServerCfg, error) {
 		ExpressionAttributeNames:  expr.Names(),
 		ExpressionAttributeValues: expr.Values(),
 		TableName:                 aws.String(s.TableName),
-		Sariska:                   aws.String(s.TableName),
 	}
 	result, err := s.DB.Query(context.TODO(), queryInput)
 	if err != nil {

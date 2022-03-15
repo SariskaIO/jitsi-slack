@@ -31,7 +31,8 @@ type TokenStore struct {
 // GetToken retrieves the access token stored with the provided team id.
 func (t *TokenStore) GetTokenForTeam(teamID string) (*TokenData, error) {
 	keyCond := expression.Key(KeyTeamID).Equal(expression.Value(teamID))
-	builder := expression.NewBuilder().WithKeyCondition(keyCond)
+	keyCond1 := expression.Key("sariska").Equal(expression.Value("sariska"))
+	builder := expression.NewBuilder().WithKeyCondition(keyCond).WithKeyCondition(keyCond1)
 	expr, err := builder.Build()
 	if err != nil {
 		return nil, err
@@ -41,7 +42,6 @@ func (t *TokenStore) GetTokenForTeam(teamID string) (*TokenData, error) {
 		ExpressionAttributeNames:  expr.Names(),
 		ExpressionAttributeValues: expr.Values(),
 		TableName:                 aws.String(t.TableName),
-		Sariska:                   aws.String(t.TableName),
 	}
 	result, err := t.DB.Query(context.TODO(), queryInput)
 	if err != nil {
