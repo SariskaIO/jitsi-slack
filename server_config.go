@@ -102,6 +102,7 @@ func (s *ServerCfgStore) Get(teamID string) (ServerCfg, error) {
 		ExpressionAttributeNames:  expr.Names(),
 		ExpressionAttributeValues: expr.Values(),
 		TableName:                 aws.String(s.TableName),
+		IndexName:                 aws.String(s.TableName),
 	}
 	result, err := s.DB.Query(context.TODO(), queryInput)
 	if err != nil {
