@@ -41,6 +41,7 @@ func (t *TokenStore) GetTokenForTeam(teamID string) (*TokenData, error) {
 		ExpressionAttributeNames:  expr.Names(),
 		ExpressionAttributeValues: expr.Values(),
 		TableName:                 aws.String(t.TableName),
+		IndexName:                 aws.String(t.TableName),
 	}
 	result, err := t.DB.Query(context.TODO(), queryInput)
 	if err != nil {
@@ -82,6 +83,7 @@ func (t *TokenStore) Store(data *TokenData) error {
 func (t *TokenStore) Remove(teamID string) error {
 	av, err := attributevalue.MarshalMap(map[string]string{
 		KeyTeamID: teamID,
+		"sariska": "sariska",
 	})
 	dii := &dynamodb.DeleteItemInput{
 		TableName: aws.String(t.TableName),
