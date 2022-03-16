@@ -77,7 +77,7 @@ func main() {
 	srvCfgStore := jitsi.ServerCfgStore{
 		TableName:               app.ServerCfgTable,
 		DB:                      svc,
-		DefaultServer:           "https://meet.sariska.io/",
+		DefaultServer:           "https://meet.sariska.io",
 		TenantScopedURLs:        authTenantSupportTest,
 		AuthenticatedURLSupport: authTenantSupportTest,
 	}

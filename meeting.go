@@ -36,13 +36,13 @@ type Meeting struct {
 // using the default service, meet.jit.si, or their own installation.
 func (m *MeetingGenerator) New(teamID, teamName string) (Meeting, error) {
 	var mtg Meeting
-	mtg.RoomName = RandomName()
+	mtg.RoomName = strings.ToLower(RandomName())
 
 	srv, err := m.ServerConfigReader.Get(teamID)
 	if err != nil {
 		return Meeting{}, err
 	}
-	mtg.Host = "https://meet.sariska.io/"
+	mtg.Host = "https://meet.sariska.io"
 
 	if srv.TenantScopedURLs {
 		mtg.URL = fmt.Sprintf("%s/%s/%s", mtg.Host, strings.ToLower(teamName), mtg.RoomName)

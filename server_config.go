@@ -2,7 +2,6 @@ package jitsi
 
 import (
 	"context"
-	"fmt"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/feature/dynamodb/attributevalue"
@@ -62,10 +61,6 @@ func (s *ServerCfgStore) Store(data *ServerCfgData) error {
 	if err != nil {
 		return err
 	}
-
-	fmt.Printf("%v awerpp_rqwjkwerjkedirect", s.TableName)
-	fmt.Printf("%v avavavavavavavavavavav", av)
-
 	_, err = s.DB.PutItem(context.TODO(), &dynamodb.PutItemInput{
 		TableName: aws.String(s.TableName),
 		Item:      av,
