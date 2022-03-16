@@ -42,7 +42,7 @@ func (m *MeetingGenerator) New(teamID, teamName string) (Meeting, error) {
 	if err != nil {
 		return Meeting{}, err
 	}
-	mtg.Host = srv.Server
+	mtg.Host = "https://meet.sariska.io/"
 
 	if srv.TenantScopedURLs {
 		mtg.URL = fmt.Sprintf("%s/%s/%s", srv.Server, strings.ToLower(teamName), mtg.RoomName)
