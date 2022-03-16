@@ -182,8 +182,6 @@ func (s *SlashCommandHandlers) Jitsi(w http.ResponseWriter, r *http.Request) {
 
 	text := r.PostFormValue("text")
 
-	fmt.Printf("texttexttexttexttexttexttexttexttext %s", text)
-
 	if helpCmdRE.MatchString(text) {
 		help(w)
 	} else if serverCmdRE.MatchString(text) {
@@ -247,6 +245,10 @@ func (s *SlashCommandHandlers) dispatchInvites(w http.ResponseWriter, r *http.Re
 	// Generate the meeting data.
 	teamID := r.PostFormValue("team_id")
 	teamName := r.PostFormValue("team_domain")
+
+	r.ParseForm()
+	fmt.Printf("%+v\n", r.Form)
+
 	meeting, err := s.MeetingGenerator.New(teamID, teamName)
 	if err != nil {
 		hlog.FromRequest(r).Error().
@@ -258,7 +260,14 @@ func (s *SlashCommandHandlers) dispatchInvites(w http.ResponseWriter, r *http.Re
 
 	// If nobody was @-mentioned then just send a generic invite to the channel.
 	text := r.PostFormValue("text")
+
+	blocks := r.PostFormValue("blocks")
+	fmt.Printf("The decimal value is %s", blocks)
+	fmt.Printf("The decimal value is %s", text)
+	fmt.Printf("The decimal value is %s", teamName)
+
 	matches := atMentionRE.FindAllStringSubmatch(text, -1)
+
 	if matches == nil {
 		w.Header().Set("Content-type", "application/json")
 		w.WriteHeader(http.StatusOK)
