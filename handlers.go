@@ -293,13 +293,11 @@ func (s *SlashCommandHandlers) dispatchInvites(w http.ResponseWriter, r *http.Re
 
 	for _, match := range matches {
 
-		fmt.Printf("The decimal value is %s", token.AccessToken)
-
-		fmt.Printf("The decimal value is %s", callerID)
+		fmt.Printf("matchmatchmatchmatch %s", match[1:])
 
 		err = sendPersonalizedInvite(token.AccessToken, callerID, match[1:], &meeting)
 
-		fmt.Printf("The decimal value is %v", err)
+		fmt.Printf("%v  %v  %v  %v", token.AccessToken, callerID, match[1:], meeting)
 
 		if err != nil {
 			switch err.Error() {
