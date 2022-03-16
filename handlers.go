@@ -289,8 +289,9 @@ func (s *SlashCommandHandlers) dispatchInvites(w http.ResponseWriter, r *http.Re
 		return
 	}
 
-	fmt.Printf("tokentokentokentokentokentoken %s", token)
-	fmt.Printf("tokentokentokentokentokentoken111111111 %v", token)
+	fmt.Printf("tokentokentokentokentokentoken %s", token.AccessToken)
+	fmt.Printf("tokentokentokentokentokentoken111111111 %v", token.TeamID)
+	fmt.Printf("tokentokentokentokentokentoken111111111 %v", token.TeamID)
 
 	// Dispatch a personal invite to each user @-mentioned.
 	callerID := r.PostFormValue("user_id")
