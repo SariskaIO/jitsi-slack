@@ -181,6 +181,9 @@ func (s *SlashCommandHandlers) Jitsi(w http.ResponseWriter, r *http.Request) {
 	}
 
 	text := r.PostFormValue("text")
+
+	fmt.Printf("%v texttexttexttexttexttexttexttexttext %v", text)
+
 	if helpCmdRE.MatchString(text) {
 		help(w)
 	} else if serverCmdRE.MatchString(text) {
