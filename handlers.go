@@ -293,11 +293,7 @@ func (s *SlashCommandHandlers) dispatchInvites(w http.ResponseWriter, r *http.Re
 
 	for _, match := range matches {
 
-		fmt.Printf("matchmatchmatchmatch %s", match[1:])
-
 		err = sendPersonalizedInvite(token.AccessToken, callerID, match[1:], &meeting)
-
-		fmt.Printf("%v  %v  %v  %v", token.AccessToken, callerID, match[1:], meeting)
 
 		if err != nil {
 			switch err.Error() {

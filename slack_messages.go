@@ -63,7 +63,7 @@ func sendPersonalizedInvite(token, hostID, userID string, meeting *Meeting) erro
 	userInfo, err := slackClient.GetUserInfo(userID)
 
 	if err != nil {
-		fmt.Printf("matchmatchmatchmatch")
+		fmt.Printf("userInfouserInfouserInfo")
 		return err
 	}
 
@@ -79,6 +79,8 @@ func sendPersonalizedInvite(token, hostID, userID string, meeting *Meeting) erro
 		userInfo.Profile.Image192,
 	)
 	if err != nil {
+		fmt.Printf("meetingURLmeetingURLmeetingURL")
+
 		return err
 	}
 
@@ -103,6 +105,7 @@ func sendPersonalizedInvite(token, hostID, userID string, meeting *Meeting) erro
 		},
 	)
 	if err != nil {
+		fmt.Printf("channelchannelchannelchannel")
 		return err
 	}
 
