@@ -245,6 +245,9 @@ func (s *SlashCommandHandlers) dispatchInvites(w http.ResponseWriter, r *http.Re
 	teamID := r.PostFormValue("team_id")
 	teamName := r.PostFormValue("team_domain")
 
+	r.ParseForm()
+	fmt.Printf("%+v\n", r.Form)
+
 	meeting, err := s.MeetingGenerator.New(teamID, teamName)
 	if err != nil {
 		hlog.FromRequest(r).Error().
@@ -269,7 +272,6 @@ func (s *SlashCommandHandlers) dispatchInvites(w http.ResponseWriter, r *http.Re
 
 	// Grab a oauth token for the slack workspace.
 	token, err := s.TokenReader.GetTokenForTeam(teamID)
-
 	if err != nil {
 		switch err.Error() {
 		case errMissingAuthToken:
@@ -291,9 +293,9 @@ func (s *SlashCommandHandlers) dispatchInvites(w http.ResponseWriter, r *http.Re
 
 	for _, match := range matches {
 
-		fmt.Printf("awerpp_rqwjkwerjkedirect %s %s %s", token.AccessToken, callerID, match)
+		err = sendPersonalizedInvite(token.AccessToken, callerID, match[1:], &meeting)
 
-		err = sendPersonalizedInvite(token.AccessToken, callerID, match, &meeting)
+		fmt.Printf("%v  %v  %v  %v", token.AccessToken, callerID, match[1:], meeting)
 
 		if err != nil {
 			switch err.Error() {
@@ -418,6 +420,10 @@ func (o *SlackOAuthHandlers) Auth(w http.ResponseWriter, r *http.Request) {
 		TeamID:      resp.Team.ID,
 		AccessToken: resp.AccessToken,
 	})
+
+	fmt.Printf("%v awerpp_rqwjkwerjkedirect", resp.Team.ID)
+
+	fmt.Printf("%v awerpp_rqwjkwerjkedirect", resp.AccessToken)
 
 	if err != nil {
 		hlog.FromRequest(r).Error().

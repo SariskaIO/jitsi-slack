@@ -84,7 +84,7 @@ func (t *TokenStore) Store(data *TokenData) error {
 // Remove will remove access token data for the user.
 func (t *TokenStore) Remove(teamID string) error {
 	av, err := attributevalue.MarshalMap(map[string]string{
-		KeyTeamID: teamID,
+		"TeamID":  teamID,
 		"sariska": "sariska",
 	})
 	dii := &dynamodb.DeleteItemInput{
