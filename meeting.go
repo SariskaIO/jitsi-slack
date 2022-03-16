@@ -47,7 +47,7 @@ func (m *MeetingGenerator) New(teamID, teamName string) (Meeting, error) {
 	if srv.TenantScopedURLs {
 		mtg.URL = fmt.Sprintf("%s/%s/%s", mtg.Host, strings.ToLower(teamName), mtg.RoomName)
 	} else {
-		mtg.URL = fmt.Sprintf("%s/%s", srv.Server, mtg.RoomName)
+		mtg.URL = fmt.Sprintf("%s/%s", mtg.Host, mtg.RoomName)
 	}
 
 	if srv.AuthenticatedURLSupport {
