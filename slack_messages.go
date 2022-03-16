@@ -63,7 +63,6 @@ func sendPersonalizedInvite(token, hostID, userID string, meeting *Meeting) erro
 	userInfo, err := slackClient.GetUserInfo(userID)
 
 	if err != nil {
-		fmt.Printf("userInfouserInfouserInfo")
 		return err
 	}
 
