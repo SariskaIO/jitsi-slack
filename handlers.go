@@ -26,7 +26,6 @@ const (
 )
 
 var (
-	atMentionRE    = regexp.MustCompile(`<@([^>|]+)`)
 	serverCmdRE    = regexp.MustCompile(`^server`)
 	serverConfigRE = regexp.MustCompile(`^server\s+(<https?:\/\/\S+>)`)
 	helpCmdRE      = regexp.MustCompile(`^help`)
@@ -261,12 +260,7 @@ func (s *SlashCommandHandlers) dispatchInvites(w http.ResponseWriter, r *http.Re
 	// If nobody was @-mentioned then just send a generic invite to the channel.
 	text := r.PostFormValue("text")
 
-	matches := atMentionRE.FindAllStringSubmatch(text, -1)
-
-	fmt.Printf("texttexttexttexttexttexttext %s", text)
-
-	fmt.Printf("matchesmatchesmatchesmatches %s", matches)
-
+	matches := strings.Split(text, " ")
 	if matches == nil {
 		w.Header().Set("Content-type", "application/json")
 		w.WriteHeader(http.StatusOK)
@@ -295,13 +289,12 @@ func (s *SlashCommandHandlers) dispatchInvites(w http.ResponseWriter, r *http.Re
 
 	// Dispatch a personal invite to each user @-mentioned.
 	callerID := r.PostFormValue("user_id")
-	for _, match := range matches {
 
+	for _, match := range matches {
 		fmt.Printf("The decimal value is %s", token.AccessToken)
 		fmt.Printf("The decimal value is %s", callerID)
-		fmt.Printf("The decimal value is %s", match[1])
 
-		err = sendPersonalizedInvite(token.AccessToken, callerID, match[1], &meeting)
+		err = sendPersonalizedInvite(token.AccessToken, callerID, match[1:], &meeting)
 
 		fmt.Printf("The decimal value is %v", err)
 
