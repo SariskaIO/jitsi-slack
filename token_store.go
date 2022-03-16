@@ -53,13 +53,13 @@ func (t *TokenStore) GetTokenForTeam(teamID string) (*TokenData, error) {
 		return nil, errors.New(errMissingAuthToken)
 	}
 
-	var token string
-
-	fmt.Printf("token %v", result.Items[0])
+	for key, value := range result.Items[0] {
+		fmt.Println("Key:", key, "Value:", value)
+	}
 
 	return &TokenData{
 		TeamID:      teamID,
-		AccessToken: token,
+		AccessToken: "x",
 	}, nil
 }
 
