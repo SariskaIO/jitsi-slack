@@ -3,6 +3,7 @@ package jitsi
 import (
 	"context"
 	"errors"
+	"fmt"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
 	"github.com/aws/aws-sdk-go-v2/feature/dynamodb/attributevalue"
@@ -53,10 +54,8 @@ func (t *TokenStore) GetTokenForTeam(teamID string) (*TokenData, error) {
 	}
 
 	var token string
-	err = attributevalue.Unmarshal(result.Items[0][KeyAccessToken], &token)
-	if err != nil {
-		return nil, err
-	}
+
+	fmt.Printf("token %v", result.Items[0])
 
 	return &TokenData{
 		TeamID:      teamID,
