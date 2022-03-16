@@ -255,6 +255,10 @@ func (s *SlashCommandHandlers) dispatchInvites(w http.ResponseWriter, r *http.Re
 		w.WriteHeader(http.StatusInternalServerError)
 		return
 	}
+ 	fmt.Printf("teamIDteamIDteamID %s", teamID)
+	fmt.Printf("teamNameteamName %s", teamName)
+	fmt.Printf("teamNameteamName %s", meeting.URL)
+	fmt.Printf("teamNameteamName %s", meeting.Host)
 
 	// If nobody was @-mentioned then just send a generic invite to the channel.
 	text := r.PostFormValue("text")
