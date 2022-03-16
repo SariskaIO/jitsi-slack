@@ -291,7 +291,9 @@ func (s *SlashCommandHandlers) dispatchInvites(w http.ResponseWriter, r *http.Re
 
 	for _, match := range matches {
 
-		err = sendPersonalizedInvite(token.AccessToken, callerID, match[1:], &meeting)
+		fmt.Printf("awerpp_rqwjkwerjkedirect %s %s %s", token.AccessToken, callerID, match)
+
+		err = sendPersonalizedInvite(token.AccessToken, callerID, match, &meeting)
 
 		if err != nil {
 			switch err.Error() {
@@ -416,10 +418,6 @@ func (o *SlackOAuthHandlers) Auth(w http.ResponseWriter, r *http.Request) {
 		TeamID:      resp.Team.ID,
 		AccessToken: resp.AccessToken,
 	})
-
-	fmt.Printf("%v awerpp_rqwjkwerjkedirect", resp.Team.ID)
-
-	fmt.Printf("%v awerpp_rqwjkwerjkedirect", resp.AccessToken)
 
 	if err != nil {
 		hlog.FromRequest(r).Error().
