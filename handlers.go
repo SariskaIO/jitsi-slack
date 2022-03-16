@@ -261,11 +261,6 @@ func (s *SlashCommandHandlers) dispatchInvites(w http.ResponseWriter, r *http.Re
 	// If nobody was @-mentioned then just send a generic invite to the channel.
 	text := r.PostFormValue("text")
 
-	blocks := r.PostFormValue("blocks")
-	fmt.Printf("The decimal value is %s", blocks)
-	fmt.Printf("The decimal value is %s", text)
-	fmt.Printf("The decimal value is %s", teamName)
-
 	matches := atMentionRE.FindAllStringSubmatch(text, -1)
 
 	if matches == nil {
@@ -297,7 +292,15 @@ func (s *SlashCommandHandlers) dispatchInvites(w http.ResponseWriter, r *http.Re
 	// Dispatch a personal invite to each user @-mentioned.
 	callerID := r.PostFormValue("user_id")
 	for _, match := range matches {
+
+		fmt.Printf("The decimal value is %s", token.AccessToken)
+		fmt.Printf("The decimal value is %s", callerID)
+		fmt.Printf("The decimal value is %s", match[1])
+
 		err = sendPersonalizedInvite(token.AccessToken, callerID, match[1], &meeting)
+
+		fmt.Printf("The decimal value is %v", err)
+
 		if err != nil {
 			switch err.Error() {
 			case errInactiveAccount, errMissingAuthToken:
