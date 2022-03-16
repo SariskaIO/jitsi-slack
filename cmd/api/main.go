@@ -77,7 +77,7 @@ func main() {
 	srvCfgStore := jitsi.ServerCfgStore{
 		TableName:               app.ServerCfgTable,
 		DB:                      svc,
-		DefaultServer:           app.JitsiConferenceHost,
+		DefaultServer:           "https://meet.sariska.io/",
 		TenantScopedURLs:        authTenantSupportTest,
 		AuthenticatedURLSupport: authTenantSupportTest,
 	}
@@ -166,8 +166,8 @@ func main() {
 
 	// Add routes and wrapped handlers to mux.
 	handler.Handle("/slash/sariska", slashJitsi) // slash command handler
-	handler.Handle("/slack/auth", slackOAuth)  // handles "Add to Slack"
-	handler.Handle("/slack/event", slackEvent) // handles workspace removal of app
+	handler.Handle("/slack/auth", slackOAuth)    // handles "Add to Slack"
+	handler.Handle("/slack/event", slackEvent)   // handles workspace removal of app
 	handler.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
 		w.WriteHeader(http.StatusOK)
 		fmt.Fprint(w, "health check passed")
