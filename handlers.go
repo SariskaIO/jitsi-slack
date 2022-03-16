@@ -263,6 +263,8 @@ func (s *SlashCommandHandlers) dispatchInvites(w http.ResponseWriter, r *http.Re
 
 	matches := atMentionRE.FindAllStringSubmatch(text, -1)
 
+	fmt.Printf("texttexttexttexttexttexttext %s", text)
+
 	fmt.Printf("matchesmatchesmatchesmatches %s", matches)
 
 	if matches == nil {
