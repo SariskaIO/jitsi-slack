@@ -260,14 +260,15 @@ func (s *SlashCommandHandlers) dispatchInvites(w http.ResponseWriter, r *http.Re
 	// If nobody was @-mentioned then just send a generic invite to the channel.
 	text := r.PostFormValue("text")
 
-	matches := strings.Split(text, " ")
-	if matches == nil {
+	if text == "" {
 		w.Header().Set("Content-type", "application/json")
 		w.WriteHeader(http.StatusOK)
 		resp := fmt.Sprintf(roomTemplate, meeting.Host, meeting.Host, meeting.URL)
 		w.Write([]byte(resp))
 		return
 	}
+
+	matches := strings.Split(text, " ")
 
 	// Grab a oauth token for the slack workspace.
 	token, err := s.TokenReader.GetTokenForTeam(teamID)
@@ -291,7 +292,9 @@ func (s *SlashCommandHandlers) dispatchInvites(w http.ResponseWriter, r *http.Re
 	callerID := r.PostFormValue("user_id")
 
 	for _, match := range matches {
+
 		fmt.Printf("The decimal value is %s", token.AccessToken)
+
 		fmt.Printf("The decimal value is %s", callerID)
 
 		err = sendPersonalizedInvite(token.AccessToken, callerID, match[1:], &meeting)
