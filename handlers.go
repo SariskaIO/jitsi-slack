@@ -272,6 +272,7 @@ func (s *SlashCommandHandlers) dispatchInvites(w http.ResponseWriter, r *http.Re
 
 	// Grab a oauth token for the slack workspace.
 	token, err := s.TokenReader.GetTokenForTeam(teamID)
+
 	if err != nil {
 		switch err.Error() {
 		case errMissingAuthToken:
@@ -287,6 +288,9 @@ func (s *SlashCommandHandlers) dispatchInvites(w http.ResponseWriter, r *http.Re
 		}
 		return
 	}
+
+	fmt.Printf("tokentokentokentokentokentoken %s", token)
+	fmt.Printf("tokentokentokentokentokentoken111111111 %v", token)
 
 	// Dispatch a personal invite to each user @-mentioned.
 	callerID := r.PostFormValue("user_id")
