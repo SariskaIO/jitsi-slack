@@ -263,6 +263,8 @@ func (s *SlashCommandHandlers) dispatchInvites(w http.ResponseWriter, r *http.Re
 
 	matches := atMentionRE.FindAllStringSubmatch(text, -1)
 
+	fmt.Printf("matchesmatchesmatchesmatches %s", matches)
+
 	if matches == nil {
 		w.Header().Set("Content-type", "application/json")
 		w.WriteHeader(http.StatusOK)
