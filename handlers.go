@@ -245,9 +245,6 @@ func (s *SlashCommandHandlers) dispatchInvites(w http.ResponseWriter, r *http.Re
 	teamID := r.PostFormValue("team_id")
 	teamName := r.PostFormValue("team_domain")
 
-	r.ParseForm()
-	fmt.Printf("%+v\n", r.Form)
-
 	meeting, err := s.MeetingGenerator.New(teamID, teamName)
 	if err != nil {
 		hlog.FromRequest(r).Error().
@@ -289,9 +286,8 @@ func (s *SlashCommandHandlers) dispatchInvites(w http.ResponseWriter, r *http.Re
 		return
 	}
 
-	fmt.Printf("tokentokentokentokentokentoken %s", token.AccessToken)
-	fmt.Printf("tokentokentokentokentokentoken111111111 %v", token.TeamID)
-	fmt.Printf("tokentokentokentokentokentoken111111111 %v", token.TeamID)
+	fmt.Printf("token %v", token)
+	fmt.Printf("AccessToken %s", token.AccessToken)
 
 	// Dispatch a personal invite to each user @-mentioned.
 	callerID := r.PostFormValue("user_id")
